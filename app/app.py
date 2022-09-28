@@ -45,11 +45,11 @@ def pagina_no_encontrada(error):
     #return redirect(url_for("index")) # otra opcion es redireccionar al index, es mas comun
 
 """conectarse a una BBDD """
-# 1 datos necesarios para la conexion
+# 1 en la app especificamos los datos de nuestra servidor de la base de datos 
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
 app.config['MYSQL_PASSWORD'] = 'Sql123.'
-app.config['MYSQL_DB'] = 'sakila'
+app.config['MYSQL_DB'] = 'sakila' # base de datos a usar
 
 # 2 creamos la instancia de MySQL en una variable para poder usarla
 conexion = MySQL(app)
@@ -59,13 +59,13 @@ conexion = MySQL(app)
 def listar_peliculas():
     data = {}
     try:
-        cursor = conexion.connection.cursor()
-        my_query = "SELECT film_id, title, rental_rate FROM film ORDER BY RAND(9) LIMIT 10"
-        cursor.execute(my_query)
-        pelis = cursor.fetchall()
+        cursor = conexion.connection.cursor() # creamos un objeto cursor 
+        my_query = "SELECT film_id, title, rental_rate FROM film ORDER BY RAND(9) LIMIT 10" # especificamos el query a realizar 
+        cursor.execute(my_query) # el cursor puede ejecutar codigo SQL en nuestra BD
+        pelis = cursor.fetchall() # extraemos los datos resultantes de la consulta 
         data["menasje"] = "exito..."
         data["peliculas"] = pelis
-    except Exception as ex:
+    except Exception as ex: # en caso de que lo de atras falle 
         data["menasje"] = "error..."
     return jsonify(data) # convertimos el dict a json para mostrar en la pantalla  
 
