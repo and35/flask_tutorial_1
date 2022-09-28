@@ -1,0 +1,11 @@
+<!-- con esto indicamos que contacto  heredara la estructura de layout  -->
+{% extends './layout.html' %} 
+
+{% block title %}{{ data.titulo }}{% endblock %}
+
+{% block body %}
+<h1>{{data.bienvenida}}</h1>
+<h2>{{data.nombre}}</h2>
+<p>{{data.profesion}}</p>
+
+{% endblock %}
